@@ -6,39 +6,28 @@ box-sizing: border-box;
 font-family: 'Bold', sans-serif;
 }
 
-body{
-position: fixed;
-left: 40%;
-}
 
 .group{
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 200px;
-padding: 40px;
-border-radius: 10px;
-background-color: #8f0707a9;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color:#24221F;
 }
 
 .group h3{
-    position: relative;
-    right: 140px;
-    top: -20px;
-}
+    color: #D4CCB6;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
 
-::placeholder{
-    color: #675151;
 }
-
-/* input{
-   outline-color: rgba(170, 170, 107, 0.438);
-   border-radius: 10px;
-} */
 
 .email input{
     width: 300px;
-    height: 30px;
+    height: 40px;
     padding-inline-start: 30px;
     border: none;
     outline: none;
@@ -50,13 +39,13 @@ background-color: #8f0707a9;
     margin: 5px;
     width: 20px; 
     position: fixed;
-    top: 262px;
+    top: 282px;
 }
 
 .password input{
     margin-top: 30px;
     width: 300px;
-    height: 30px;
+    height: 40px;
     padding-inline-start: 30px;
     border: none;
     outline: none;
@@ -67,7 +56,7 @@ background-color: #8f0707a9;
     margin: 5px;
     width: 20px; 
     position: fixed;
-    top: 322px;
+    top: 350px;
     
 }
 .butao{
@@ -76,89 +65,35 @@ background-color: #8f0707a9;
     position: relative;
     width: 300px;
     height: 40px;
-    top: 10px;
+    top: 20px;
 }
 
 .butao input{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background-color: rgba(114, 185, 110, 0.534);
-    transition: all 0.3s;
+    width: 300px;
+    height: 40px;  
+    background-color:#04D361;
+    border: none;  
     border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #fff;
 
 }
 
-
-.butao ::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: rgba(255,255,255,0.1);
-  transition: all 0.3s;
-}
-
-.butao:hover::before{
-    opacity: 0 ;
-    transform: scale(0.5,0.5);
-}
-
-.butao::after{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0;
-    transition: all 0.3s;
-    border: 1px solid rgba(255,255,255,0.5);
-    transform: scale(1.2,1.2);
-}
-
-.butao:hover::after {
-    opacity: 1;
-    transform: scale(1,1);
-  }
-
-@media(max-width:925px){
-    body{
+@media(max-width:560px){
+    .email img{
+        margin: 5px;
+        width: 20px; 
         position: fixed;
-        left: 100px;
+        top: 274px;
     }
-}
-
-@media(max-width:725px){
-    body{
+    
+    .password img{
+        margin: 5px;
+        width: 20px; 
         position: fixed;
-        left: 90px;
-    }
-}
-
-@media(max-width:525px){
-    body{
-        position: fixed;
-        left: 80px;
-    }
-}
-@media(max-width:425px){
-    body{
-        position: fixed;
-        left: 20px;
-    }
-}
-@media(max-width:385px){
-    body{
-        position: fixed;
-        left: 0px;
+        top: 345px;
+        
     }
 }

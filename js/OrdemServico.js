@@ -3,45 +3,89 @@ document.getElementById("enviar").addEventListener("click", function() {
     const telefone = document.getElementById("telefone").value; 
     const endereco = document.getElementById("endereco").value;
     const bairro = document.getElementById("bairro").value;
-    const date = document.getElementById("date").value;
     const aparelho = document.getElementById("aparelho").value;
     const reclamacoes = document.getElementById("reclamacoes").value;
     const observacoes = document.getElementById("observacoes").value;
-    fetch("http://localhost:8080/servicos/os", {
+    const valor = document.getElementById("valor").value;
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.error('Erro: Token não encontrado');
+        Swal.fire({
+            icon: "error",
+            title: "ERRO!",
+            text: "Usuário não autenticado! Faça login novamente."
+        });
+        window.location.href = "/login.html";
+        return;
+    }
+
+    // Primeira requisição
+    const clientRequest = fetch("http://localhost:8080/client", {
         method: "POST",
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            nome: nome,
-            telefone: telefone,
-            endereco:endereco,
-            bairro:bairro,
-            date:date,
-            aparelho:aparelho,
-            reclamacoes:reclamacoes,
-            observacoes:observacoes
+            name: nome,
+            telephone: telefone,
+            addres: endereco,
+            neighboard: bairro
         })
+    });
+
+    // Segunda requisição
+    const servicosRequest = fetch("http://localhost:8080/servicos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            device: aparelho,
+            complaints: reclamacoes,
+            observations: observacoes,
+            value: valor
+        })
+    });
+
+    Promise.all([clientRequest, servicosRequest])
+    .then(responses => {
+        responses.forEach(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+        });
+        return Promise.all(responses.map(response => response.json()));
     })
-    .then(function(res) { console.log(res)})
-    .catch(function(res) { console.log(res)})
+    .then(data => {
+        console.log('Dados enviados com sucesso:', data);
+        Swal.fire({
+            icon: "success",
+            title: "Sucesso!",
+            text: "Dados enviados com sucesso."
+        });
+    })
+    .catch(error => {
+        console.error('Erro ao enviar dados:', error);
+        Swal.fire({
+            icon: "error",
+            title: "ERRO!",
+            text: "Falha ao enviar os dados."
+        });
+    });
 
-
-   limpar();
+    limpar();
 });
 
 function limpar(){
-    nome.value = "";
-    telefone.value = "";
-    endereco.value = "";
-    bairro.value = "";
-    date.value = "";
-    aparelho.value = "";
-    reclamacoes.value = "";
-    observacoes.value = "";
+    document.getElementById("nome").value = "";
+    document.getElementById("telefone").value = "";
+    document.getElementById("endereco").value = "";
+    document.getElementById("bairro").value = "";
+    document.getElementById("aparelho").value = "";
+    document.getElementById("reclamacoes").value = "";
+    document.getElementById("observacoes").value = "";
+    document.getElementById("valor").value = "";
 }
-
-
-
-

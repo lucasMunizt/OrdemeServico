@@ -176,8 +176,23 @@ label{
     outline-color: #04D361;
 
 }
+ .valor label{
+    display: flex;
+    margin-top: 10px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+ }   
 
-
+ .valor input{
+    margin-top: 5px;
+    width: 300px;
+    height: 50px;
+    padding-inline-start: 30px;
+    border: none;
+    border-radius: 5px;
+    outline-color: #04D361;
+}
 
 .butao input{
     width: 300px;

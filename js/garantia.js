@@ -1,9 +1,14 @@
 document.getElementById("enviar").addEventListener("click", function() {
-    const valor = document.getElementById("valor").value;
+    const os = document.getElementById("os").value; 
+    
     const nome = document.getElementById("nome").value; 
-    const valorE = document.getElementById("valorE").value; 
     const aparelho = document.getElementById("aparelho").value; 
+    
+    const pecas = document.getElementById("pecas").value; 
+    const valor = document.getElementById("valor").value;
 
+    const dateInput = document.getElementById("date").value;
+    const date = new Date(dateInput).toISOString();
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -26,8 +31,10 @@ document.getElementById("enviar").addEventListener("click", function() {
         body: JSON.stringify({
             value: valor,
             name: nome,
-            extensiveValue: valorE,
-            product: aparelho  
+            parts:pecas,
+            product: aparelho,
+            date: date,
+            os: os
         })
     })
     .then(response => {
@@ -59,8 +66,11 @@ document.getElementById("enviar").addEventListener("click", function() {
 function limpar(){
     document.getElementById("nome").value = "";
     document.getElementById("valor").value = "";
-    document.getElementById("valorE").value = "";
+    document.getElementById("os").value = "";
     document.getElementById("aparelho").value = "";
+    document.getElementById("pecas").value = ""; 
+    document.getElementById("date").value = "";
+
 }
 
 

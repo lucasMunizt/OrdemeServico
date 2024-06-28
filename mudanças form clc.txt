@@ -1,2 +1,0 @@
-nos formularios da clv quando for modificar usa form e colocar um action para levar a outra pagina que mostrarar todos os dados e qrcode e 
-compartilhar

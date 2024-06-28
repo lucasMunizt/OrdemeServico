@@ -7,6 +7,8 @@ document.getElementById("enviar").addEventListener("click", function() {
     const reclamacoes = document.getElementById("reclamacoes").value;
     const observacoes = document.getElementById("observacoes").value;
     const valor = document.getElementById("valor").value;
+    const dateInput = document.getElementById("date").value;
+    const date = new Date(dateInput).toISOString();
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -31,7 +33,7 @@ document.getElementById("enviar").addEventListener("click", function() {
             name: nome,
             telephone: telefone,
             addres: endereco,
-            neighboard: bairro
+            neighboard: bairro,
         })
     });
 
@@ -46,7 +48,8 @@ document.getElementById("enviar").addEventListener("click", function() {
             device: aparelho,
             complaints: reclamacoes,
             observations: observacoes,
-            value: valor
+            value: valor,
+            date: date
         })
     });
 
@@ -88,4 +91,5 @@ function limpar(){
     document.getElementById("reclamacoes").value = "";
     document.getElementById("observacoes").value = "";
     document.getElementById("valor").value = "";
+    document.getElementById("data").value = "";
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Garantia.css">
+    <link rel="stylesheet" href="./css/Garantia.css">
     <title>Garantia</title>
 </head>
 <body>
@@ -13,33 +13,41 @@
                 <h2>Garantia</h2>
             </div>
 
-            <div class="valor">
-                <label for="">Valor R$</label>
-                <input type="text" placeholder="Valor" id="valor">
+            <div class="val-extenso">
+                <label for="">Os:</label>
+                <input type="number" placeholder="Os" id="os">
             </div>
             
             <div class="name">
-                <label for="">Recebemos do(s) Sr(s)</label>
+                <label for="">Senhor(a):</label>
                 <input type="text" placeholder="Recebemos do(s) Sr(s)" id="nome">
             </div>
 
-            <div class="val-extenso">
-                <label for="">A importância de R$</label>
-                <input type="text" placeholder="A importância de R$" id="valorE">
-            </div>
-
             <div class="aparelho">
-                <label for="">Referente a </label>
+                <label for="">Aparelho: </label>
                 <input type="text" placeholder="Referente a" id="aparelho">
             </div>
 
+            <div class="valor">
+                <label for="">Peças: </label>
+                <!-- <input type="text" placeholder="Valor" id="valor"> -->
+                <textarea name="" id="pecas"></textarea>
+            </div>
+            
+            
+            <div class="val-extenso">
+                <label for="">Valor:</label>
+                <input type="number" placeholder="Valor" id="valor">
+            </div>
+
+          
             <p>Pelo que firmamos o presente 
                 para os devidos fins e efeitos
                 legais
             </p>
             
             <div class="data">
-                <input type="date">
+                <input type="date" id="date">
             </div>
 
             <input type="submit" value="enviar" class="submit" id="enviar">
@@ -48,5 +56,8 @@
         
     </div>
 </body>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="./js/pdf/pdfgarantia.js"></script>
     <script src="./js/garantia.js"></script>
 </html>

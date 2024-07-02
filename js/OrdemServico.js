@@ -1,4 +1,4 @@
-document.getElementById("enviar").addEventListener("click", function() {
+document.getElementById("enviar").addEventListener("click", async function() {
     const nome = document.getElementById("nome").value;
     const telefone = document.getElementById("telefone").value; 
     const endereco = document.getElementById("endereco").value;
@@ -22,62 +22,59 @@ document.getElementById("enviar").addEventListener("click", function() {
         return;
     }
 
-    // Primeira requisição
-    const clientRequest = fetch("http://localhost:8080/client", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            name: nome,
-            telephone: telefone,
-            addres: endereco,
-            neighboard: bairro,
-        })
-    });
+    // Função para verificar e analisar a resposta JSON
+    const checkResponse = async (response) => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição');
+        }
+        const text = await response.text();
+        return text ? JSON.parse(text) : {};
+    };
 
-    // Segunda requisição
-    const servicosRequest = fetch("http://localhost:8080/servicos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            device: aparelho,
-            complaints: reclamacoes,
-            observations: observacoes,
-            value: valor,
-            date: date
-        })
-    });
+    try {
+        // Primeira requisição
+        const clientResponse = await fetch("http://localhost:8080/client", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name: nome,
+                telephone: telefone,
+                addres: endereco,
+                neighboard: bairro,
+            })
+        });
 
-    Promise.all([clientRequest, servicosRequest])
-    .then(responses => {
-        responses.forEach(response => {
-            if (!response.ok) {
-                throw new Error('Erro na requisição');
-            }
+        // Segunda requisição
+        const servicosResponse = await fetch("http://localhost:8080/servicos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                device: aparelho,
+                complaints: reclamacoes,
+                observations: observacoes,
+                value: valor,
+                date: date
+            })
         });
-        return Promise.all(responses.map(response => response.json()));
-    })
-    .then(data => {
-        console.log('Dados enviados com sucesso:', data);
-        Swal.fire({
-            icon: "success",
-            title: "Sucesso!",
-            text: "Dados enviados com sucesso."
-        });
-    })
-    .catch(error => {
+
+        const clientData = await checkResponse(clientResponse);
+        const servicosData = await checkResponse(servicosResponse);
+
+      
+    } catch (error) {
         console.error('Erro ao enviar dados:', error);
         Swal.fire({
             icon: "error",
             title: "ERRO!",
             text: "Falha ao enviar os dados."
         });
-    });
+    }
 
     limpar();
 });
@@ -91,5 +88,5 @@ function limpar(){
     document.getElementById("reclamacoes").value = "";
     document.getElementById("observacoes").value = "";
     document.getElementById("valor").value = "";
-    document.getElementById("data").value = "";
+    document.getElementById("date").value = "";
 }

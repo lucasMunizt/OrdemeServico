@@ -1,4 +1,5 @@
-ocument.getElementById('enviar').addEventListener("click", function() {
+import { Valorid } from "./Dadosid.js";
+document.getElementById('enviar').addEventListener("click", async function() {
     const nome = document.getElementById("nome").value;
     const telefone = document.getElementById("telefone").value; 
     const endereco = document.getElementById("endereco").value;
@@ -8,7 +9,7 @@ ocument.getElementById('enviar').addEventListener("click", function() {
     const observacoes = document.getElementById("observacoes").value;
     const valor = document.getElementById("valor").value;
     const dateInput = document.getElementById("date").value;
-
+    const dadosId = await Valorid();
     function formatDate(date) {
         const [year, month, day] = date.split('-');
         return `${day}/${month}/${year}`;
@@ -23,7 +24,7 @@ ocument.getElementById('enviar').addEventListener("click", function() {
        
         doc.setFont("helvetica");
         doc.setFontSize(12);
-        const imgUrl = './logobranco.jpg';
+        const imgUrl = './img/logobranco.jpg';
         const imgX = 10;
         const imgY = 10;
         const imgWidth = 30;
@@ -38,7 +39,7 @@ ocument.getElementById('enviar').addEventListener("click", function() {
         doc.text("RUA: DAMIÃO FERNANDES, 433 - PARQUELÂNDIA", 60, 30);
         doc.text("CEP: 60455-600 - FORTALEZA-CE", 60, 35);
         doc.text("TEL: (85)99994.8957/ (85)3214.6321", 60, 40);
-
+        doc.text(`OS: ${dadosId}`, 10, 65);
         doc.text(`Nome: ${nome}`, 10, 75);
         doc.text(`Telefone: ${telefone}`, 10, 85);
         doc.text(`Endereço: ${endereco}`, 10, 95);

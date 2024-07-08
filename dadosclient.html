@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dados do Cliente e Serviços</title>
+    <style>
+        body {
+            background-color: rgb(22, 21, 21);
+            color: white;
+            font-weight: 800;
+            text-align: center;
+        }
+        h1{
+            margin-bottom: 40px;
+        }
+       
+        #info{
+           text-align: center;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           display: flex;
+           gap: 20px;
+           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+           0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+       
+    </style>
 </head>
 <body>
-    <h1>Dados do Cliente</h1>
-    <div id="cliente-info">
-        <h2>Informações do Cliente</h2>
-        <p id="nome"></p>
-        <p id="telefone"></p>
-        <p id="endereco"></p>
-        <p id="bairro"></p>
-    </div>
-
-    <div id="servicos-info">
-        <h2>Serviços</h2>
-        <p id="aparelho"></p>
-        <p id="reclamacoes"></p>
-        <p id="observacoes"></p>
-    </div>
+    <h1>Dados do Cliente e Serviços</h1>
+    <div id="info"></div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/dados.js"></script>
 </body>
-<script src="./js/dados.js"></script>
 </html>

@@ -56,8 +56,8 @@ document.getElementById("enviar").addEventListener("click", async function() {
             },
             body: JSON.stringify({
                 device: aparelho,
-                complaints: reclamacoes,
-                observations: observacoes,
+                claims: reclamacoes,
+                observation: observacoes,
                 value: valor,
                 date: date
             })

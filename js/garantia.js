@@ -1,59 +1,31 @@
+import { db } from './config/configDataBase.js';
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+async function GetDataBase(aparelho, nome, pecas, valor) {
+    try {
+        await addDoc(collection(db, "garantia"), {
+            nome: nome,
+            aparelho: aparelho,
+            pecas: pecas,
+            valor: valor,
+           
+        });
+        alert("Dados enviados com sucesso!");
+    } catch (e) {
+        console.error("Erro ao adicionar documento: ", e);
+        alert("Erro ao enviar dados.");
+    }
+}
+
 document.getElementById("enviar").addEventListener("click", function() {
     const os = document.getElementById("os").value;
     const nome = document.getElementById("nome").value;
     const aparelho = document.getElementById("aparelho").value;
     const pecas = document.getElementById("pecas").value;
     const valor = document.getElementById("valor").value;
-    const dateInput = document.getElementById("date").value;
-    const date = new Date(dateInput).toISOString();
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-        console.error('Erro: Token não encontrado');
-        Swal.fire({
-            icon: "error",
-            title: "ERRO!",
-            text: "Usuário não autenticado! Faça login novamente."
-        });
-        window.location.href = "/login.html";
-        return;
-    }
-
-    const checkResponse = async (response) => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição');
-        }
-        const text = await response.text();
-        return text ? JSON.parse(text) : {};
-    };
-
-    fetch("http://localhost:8080/garantia", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            value: valor,
-            name: nome,
-            parts: pecas,
-            product: aparelho,
-            date: date,
-            os: os
-        })
-    })
-    .then(response => checkResponse(response))
-    .then(data => {
-        console.log('Dados enviados com sucesso:', data);
-    })
-    .catch(error => {
-        console.error('Erro ao enviar dados:', error);
-        Swal.fire({
-            icon: "error",
-            title: "ERRO!",
-            text: "Falha ao enviar os dados."
-        });
-    });
+   // const dateInput = document.getElementById("date").value;
+  //  const date = new Date(dateInput).toISOString();
+  GetDataBase(nome,aparelho,pecas,valor)
 
     limpar();
 });

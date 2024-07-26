@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .then(data => {
-        console.log('Dados do cliente:', data); // Adicionado para depuração
+      // Adicionado para depuração
         clientes = data;
         exibirDadosCombinados();
     })
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .then(data => {
-        console.log('Dados dos serviços:', data); // Adicionado para depuração
+        // Adicionado para depuração
         servicos = data;
         exibirDadosCombinados();
     })
@@ -98,28 +98,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const dadosCombinados = clientes.map(cliente => {
             const servicosCliente = servicos.filter(servico => servico.id === cliente.id);
-            console.log(`Serviços para o cliente ${cliente.name}:`, servicosCliente);
+           
             return { ...cliente, servicos: servicosCliente };
         });
 
-        console.log('Dados combinados:', dadosCombinados); // Adicionado para depuração
+        
 
         dadosCombinados.forEach(item => {
-      
             const itemDiv = document.createElement('div');
-           
-            itemDiv.style.backgroundColor = '#e4ebe5'
-            itemDiv.style.width = '500px'
-            itemDiv.style.height = '400px'
-            itemDiv.style.borderRadius = '10px'
-            itemDiv.style.color = 'black'
-            
-            
-            
-            
-
+            itemDiv.classList.add('info-item'); // Adiciona a classe CSS 'info-item'
             itemDiv.innerHTML = `
-                <p style = "margin-top: 60px;">Nome: ${item.name}</p>
+                <p>Nome: ${item.name}</p>
                 <p>Telefone: ${item.telephone}</p>
                 <p>Endereço: ${item.addres}</p>
                 <p>Bairro: ${item.neighboard || 'N/A'}</p>
@@ -133,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <br>
             `;
             infoDiv.appendChild(itemDiv);
-            
         });
     }
 });
+*/

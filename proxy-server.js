@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
@@ -14,4 +14,4 @@ app.use('/api', createProxyMiddleware({
 
 app.listen(5500, () => {
     console.log('Proxy escutando na porta 5500!');
-});
+});*/

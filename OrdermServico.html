@@ -7,68 +7,66 @@
     <title>Ordem Serviço</title>
 </head>
 <body>
-        <div class="pai">
-            <div class="ordem-servico">
-                <div class="campos">
-                    <div class="nome-f">
-                        <h3>Ordem de Serviço</h3> 
-                    </div> 
-                    <div class="name">
-                        <label for="">Nome</label>
-                        <input type="text" placeholder="nome" id="nome">
-                    </div>
-                
-                    <div class="telefone">
-                        <label for="">Telefone</label>
-                        <input type="text" placeholder="telefone" id="telefone">
-                    </div>
+    <div class="pai">
+        <div class="ordem-servico">
+            <div class="campos">
+                <div class="nome-f">
+                    <h3>Ordem de Serviço</h3> 
+                </div> 
+                <div class="name">
+                    <label for="">Nome</label>
+                    <input type="text" placeholder="nome" id="nome">
+                </div>
+            
+                <div class="telefone">
+                    <label for="">Telefone</label>
+                    <input type="text" placeholder="telefone" id="telefone">
+                </div>
 
-                    <div class="endereco">
-                        <label for="">Endereço</label>
-                        <input type="text" placeholder="endereço" id="endereco">
-                    </div>
+                <div class="endereco">
+                    <label for="">Endereço</label>
+                    <input type="text" placeholder="endereço" id="endereco">
+                </div>
 
-                    <div class="bairro">
-                        <label for="">Bairro</label>
-                        <input type="text" placeholder="bairro" id="bairro">
-                    </div>
+                <div class="bairro">
+                    <label for="">Bairro</label>
+                    <input type="text" placeholder="bairro" id="bairro">
+                </div>
 
-                    <div class="date">
-                        <label for="">Data</label>
-                        <input type="date" id="date">
-                    </div>
+                <div class="date">
+                    <label for="">Data</label>
+                    <input type="date" id="date">
+                </div>
 
-                    <div class="aparelho">
-                        <label for="">Aparelho</label>
-                        <input type="text" placeholder="aparelho" id="aparelho">
-                    </div>
+                <div class="aparelho">
+                    <label for="">Aparelho</label>
+                    <input type="text" placeholder="aparelho" id="aparelho">
+                </div>
 
-                    <div class="reclamacoes">
-                        <label for="">Reclamações</label>
-                       <textarea name="reclamações" cols="20" rows="5" placeholder="reclamações" id="reclamacoes"></textarea>
-                    </div>
+                <div class="reclamacoes">
+                    <label for="">Reclamações</label>
+                    <textarea name="reclamações" cols="20" rows="5" placeholder="reclamações" id="reclamacoes"></textarea>
+                </div>
 
-                    <div class="observacoes">
-                        <label for="">Observações</label>
-                        <textarea name="observações" cols="20" rows="5" placeholder="observações" id="observacoes"></textarea>
-                    </div>
-                    <div class="valor">
-                        <label for="">Valor</label>
-                        <input type="number" id="valor" placeholder="Valor">
-                     </div>
+                <div class="observacoes">
+                    <label for="">Observações</label>
+                    <textarea name="observações" cols="20" rows="5" placeholder="observações" id="observacoes"></textarea>
+                </div>
+                <div class="valor">
+                    <label for="">Valor</label>
+                    <input type="number" id="valor" placeholder="Valor">
+                </div>
 
-                     <div class="butao">
-                        <input type="button" value="Enviar" id="enviar">
-                     </div>
-                     
+                <div class="butao">
+                    <input type="button" value="Enviar" id="enviar">
                 </div>
             </div>
         </div>
+    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script type="module" src="./js/pdf/pdfordemservico.js"></script>
+<script type="module" src="./js/DataBase/config/configDataBase.js"></script>
 <script type="module" src="js/OrdemServico.js"></script>
-<script type="modlue" src="./js/config/configDataBase.js" ></script> 
 
 </html>

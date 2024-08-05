@@ -16,8 +16,14 @@
             <a href="./dadosclient.html"><input type="button" value="Serviços"></a>
         </div>
     </div>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Pesquisar por Nome ou ID">
+        <button id="search-button">Pesquisar</button>
+    </div>
     <div id="info"></div>
+    <button id="load-more" style="display: none;">Carregar mais</button>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="./js/dados.js"></script>
+    <script type="module" src="./js/DataBase/config/configDataBase.js"></script>
+    <script type="module" src="./js/dados.js"></script>
 </body>
 </html>

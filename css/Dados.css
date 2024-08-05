@@ -46,6 +46,7 @@ h1 {
         gap: 20px;
         margin-bottom: 20px;
 }
+
 .butao-garantia a [type=button] {
   
     width: 200px;
@@ -56,10 +57,46 @@ h1 {
     color: white;
     background-color: #22a55d;
 }
+
 .butao-garantia:hover a [type=button]{
     background-color: #163b29;
 }
 
+.search-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+#search-input{
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+#search-button{
+    height: 30px;
+    border-radius: 5px;
+    background-color: #22a55d;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+#load-more{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #22a55d;
+    cursor: pointer;
+    color: white;
+    border: none;
+    width: 100%;
+}
 /* Responsivo */
 @media (max-width: 1200px) {
     #info {
@@ -78,6 +115,26 @@ h1 {
         align-items: center;
         justify-content: center;
         gap: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+    }
 }
+
+@media (max-width: 565px) {
+    #info {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .butoes-nav{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+   
 }

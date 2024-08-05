@@ -1,82 +1,114 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const token = localStorage.getItem('token');
+// js/dadosGarantia.js
+import { db } from './DataBase/config/configDataBase.js';
+import { collection, getDocs, query, orderBy, limit, startAfter } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-    if (!token) {
-        console.error('Erro: Token não encontrado');
+let garantias = [];
+let lastVisibleGarantia = null;
+const pageSize = 10;
+
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const querySnapshot = await getDocs(query(collection(db, "garantia"), orderBy("data", "desc"), limit(pageSize)));
+        
+        garantias = [];
+        querySnapshot.forEach(doc => {
+            garantias.push(doc.data());
+        });
+
+        lastVisibleGarantia = querySnapshot.docs[querySnapshot.docs.length - 1];
+        exibirDadosGarantias(garantias);
+
+        const loadMoreButton = document.getElementById('load-more');
+
+        if (garantias.length === pageSize) {
+            loadMoreButton.style.display = 'block';
+        } else {
+            loadMoreButton.style.display = 'none';
+        }
+
+        loadMoreButton.addEventListener('click', carregarMaisGarantias);
+
+    } catch (e) {
+        console.error("Erro ao carregar dados: ", e);
         Swal.fire({
             icon: "error",
             title: "ERRO!",
-            text: "Usuário não autenticado! Faça login novamente."
+            text: "Falha ao carregar os dados."
         });
-        window.location.href = "/login.html";
+    }
+
+    const searchInput = document.getElementById('search-input');
+    const searchButton = document.getElementById('search-button');
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        if (searchTerm === "") {
+            exibirDadosGarantias(garantias);
+        } else {
+            const filteredGarantias = garantias.filter(garantia => 
+                (garantia.nome && garantia.nome.toLowerCase().includes(searchTerm)) || 
+                (garantia.os && garantia.os.toString().includes(searchTerm))
+            );
+            exibirDadosGarantias(filteredGarantias);
+        }
+    });
+});
+
+async function carregarMaisGarantias() {
+    try {
+        const querySnapshot = await getDocs(query(collection(db, "garantia"), orderBy("data", "desc"), startAfter(lastVisibleGarantia), limit(pageSize)));
+        querySnapshot.forEach(doc => {
+            garantias.push(doc.data());
+        });
+
+        lastVisibleGarantia = querySnapshot.docs[querySnapshot.docs.length - 1];
+        
+        exibirDadosGarantias(garantias);
+
+        const loadMoreButton = document.getElementById('load-more');
+        if (querySnapshot.docs.length < pageSize) {
+            loadMoreButton.style.display = 'none';
+        }
+    } catch (e) {
+        console.error("Erro ao carregar mais dados: ", e);
+        Swal.fire({
+            icon: "error",
+            title: "ERRO!",
+            text: "Falha ao carregar mais dados."
+        });
+    }
+}
+
+function formatarData(data) {
+    if (!data) return 'N/A';
+    const date = new Date(data);
+    const dia = String(date.getDate()).padStart(2, '0');
+    const mes = String(date.getMonth() + 1).padStart(2, '0');
+    const ano = date.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+function exibirDadosGarantias(garantias) {
+    const infoDiv = document.getElementById('info');
+    infoDiv.innerHTML = '';
+
+    if (garantias.length === 0) {
+        infoDiv.innerHTML = '<p>Nenhum dado encontrado.</p>';
         return;
     }
 
-    let garantias = [];
-
-    // Fetch dados da garantia
-    fetch("http://localhost:8080/garantia", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Dados da garantia:', data); // Adicionado para depuração
-        garantias = data;
-        exibirDadosGarantia();
-    })
-    .catch(error => {
-        console.error('Erro ao carregar dados da garantia:', error);
-        Swal.fire({
-            icon: "error",
-            title: "ERRO!",
-            text: "Falha ao carregar os dados da garantia."
-        });
+    garantias.forEach(garantia => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('info-item'); // Adiciona a classe CSS 'info-item'
+        itemDiv.innerHTML = `
+            <p>OS: ${garantia.os}</p>
+            <p>Nome: ${garantia.nome}</p>
+            <p>Aparelho: ${garantia.aparelho}</p>
+            <p>Peças: ${garantia.pecas}</p>
+            <p>Valor: ${garantia.valor}</p>
+            <p>Data: ${formatarData(garantia.data)}</p>
+            <br>
+        `;
+        infoDiv.appendChild(itemDiv);
     });
-
-    function formatarData(data) {
-        if (!data) return 'N/A';
-        const date = new Date(data);
-        const dia = String(date.getDate()).padStart(2, '0');
-        const mes = String(date.getMonth() + 1).padStart(2, '0');
-        const ano = date.getFullYear();
-        return `${dia}/${mes}/${ano}`;
-    }
-
-    function exibirDadosGarantia() {
-        if (garantias.length === 0) {
-            return;
-        }
-
-        const infoDiv = document.getElementById('info');
-
-        if (!infoDiv) {
-            console.error('Erro: Elemento com ID "info" não encontrado no DOM.');
-            return;
-        }
-
-        garantias.forEach(item => {
-            const itemDiv = document.createElement('div');
-            itemDiv.classList.add('info-item'); // Adiciona a classe CSS 'info-item'
-            itemDiv.innerHTML = `
-                <p>Nome: ${item.name}</p>
-                <p>Produto: ${item.product}</p>
-                <p>Peças: ${item.parts}</p>
-                <p>Valor: ${item.value}</p>
-                <p>Data: ${formatarData(item.date)}</p>
-                <p>Ordem de Serviço: ${item.os}</p>
-                <br>
-            `;
-            infoDiv.appendChild(itemDiv);
-        });
-    }
-});
-
+}
